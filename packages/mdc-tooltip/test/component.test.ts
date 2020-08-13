@@ -175,4 +175,41 @@ describe('MDCTooltip', () => {
            .toHaveBeenCalledWith(AnchorBoundaryType.UNBOUNDED);
        component.destroy();
      });
+
+  it('sets aria-hidden to false when showing tooltip on an anchor annotated with `aria-describedby`',
+     () => {
+       const tooltipElem = fixture.querySelector<HTMLElement>('#tt0')!;
+       const anchorElem =
+           fixture.querySelector<HTMLElement>('[aria-describedby]')!;
+       const component = new MDCTooltip(tooltipElem);
+
+
+       emitEvent(anchorElem, 'mouseenter');
+       jasmine.clock().tick(1);
+       expect(tooltipElem.getAttribute('aria-hidden')).toEqual('false');
+     });
+
+  it('leaves aria-hidden as true when showing tooltip on an anchor annotated with `data-tooltip-id`',
+     () => {
+       document.body.removeChild(fixture);
+       fixture = getFixture(`<div>
+        <button data-tooltip-id="tt0">
+          anchor
+        </button>
+        <div id="tt0" class="mdc-tooltip" aria-role="tooltip" aria-hidden="true">
+          <div class="mdc-tooltip__surface">
+            demo tooltip
+          </div>
+        </div>
+      </div>`);
+       document.body.appendChild(fixture);
+       const tooltipElem = fixture.querySelector<HTMLElement>('#tt0')!;
+       const anchorElem =
+           fixture.querySelector<HTMLElement>('[data-tooltip-id]')!;
+       const component = new MDCTooltip(tooltipElem);
+
+       emitEvent(anchorElem, 'mouseenter');
+       jasmine.clock().tick(1);
+       expect(tooltipElem.getAttribute('aria-hidden')).toEqual('true');
+     });
 });
