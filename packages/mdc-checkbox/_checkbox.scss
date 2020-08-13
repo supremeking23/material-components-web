@@ -208,6 +208,9 @@
 /// Checkbox theme styles.
 /// Checkbox styles that are customizable should go here.
 @mixin theme-styles($query: feature-targeting.all()) {
+  // TODO(b/162888403): Use checkbox-theme.theme() mixin once Angular Material
+  // fixes default color issue.
+  // See https://github.com/angular/components/issues/18465
   .mdc-checkbox {
     @include checkbox-theme.focus-indicator-color(
       checkbox-theme.$baseline-theme-color,
@@ -242,14 +245,13 @@
       $query: $query,
       $ripple-target: checkbox-theme.$ripple-target
     );
-    @include ripple-theme.states(
-      $color: on-surface,
-      $query: $query,
-      $ripple-target: checkbox-theme.$ripple-target
-    );
     @include ripple.radius-unbounded(
       $query: $query,
       $ripple-target: checkbox-theme.$ripple-target
+    );
+    @include ripple-theme.behind-content(
+      checkbox-theme.$ripple-target,
+      $query: $query
     );
   }
 
@@ -283,11 +285,7 @@
 }
 
 @mixin child--upgraded_ {
-  // Due to the myriad of selector combos used to properly style a CSS-only checkbox, all of
-  // which have varying selector precedence and make use of transitions, it is cleaner and more
-  // efficient here to simply use !important, since the mdc-checkbox--anim-* classes will take
-  // over from here.
-  transition: none !important;
+  transition: none;
 }
 
 // Animation

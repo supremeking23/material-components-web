@@ -1,17 +1,19 @@
-@use '../mixins' as checkbox;
+@use '../checkbox';
+@use '../checkbox-theme';
 @use '@material/feature-targeting/feature-targeting';
 
 @mixin test($query) {
   .test {
     @include checkbox.core-styles($query: $query);
-    @include checkbox.container-colors($query: $query);
-    @include checkbox.ink-color(red, $query: $query);
-    @include checkbox.focus-indicator-color(red, $query: $query);
+    @include checkbox-theme.container-colors($query: $query);
+    @include checkbox-theme.ink-color(red, $query: $query);
+    @include checkbox-theme.focus-indicator-color(red, $query: $query);
     @include checkbox.ripple-styles($query: $query);
     @include checkbox.without-ripple($query: $query);
-    @include checkbox.ripple-size(0, $query: $query);
-    @include checkbox.touch-target(0, 0, $query: $query);
-    @include checkbox.density(0, $query: $query);
+    @include checkbox-theme.ripple-size(0, $query: $query);
+    @include checkbox-theme.touch-target(0, 0, $query: $query);
+    @include checkbox-theme.density(0, $query: $query);
+    @include checkbox-theme.theme(checkbox-theme.$light-theme, $query: $query);
   }
 }
 
