@@ -48,6 +48,12 @@ enum Position {
   END = 3,
 }
 
+enum YPosition {
+  DETECTED = 0,
+  ABOVE = 1,
+  BELOW = 2,
+}
+
 /**
  * Enum for possible anchor boundary types. This determines the gap between the
  * bottom of the anchor and the tooltip element.
@@ -59,4 +65,4 @@ enum AnchorBoundaryType {
   UNBOUNDED = 1,
 }
 
-export {CssClasses, numbers, events, Position, AnchorBoundaryType};
+export {CssClasses, numbers, events, Position, AnchorBoundaryType, YPosition};
